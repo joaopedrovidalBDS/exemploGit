@@ -33,6 +33,7 @@ void loop() {
   // Coloque seu código principal aqui, para rodar repetidamente:
 
   //Escrevendo o resultado na tela, se ele for possível:
+
   if (D == 0) {
     Serial.println("Impossível calcular a média ponderada.");  // Mostra a frase no monitor
     delay(1000);                                               // Espera 1 segundo antes de seguir o loop
