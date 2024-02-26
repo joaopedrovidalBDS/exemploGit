@@ -31,7 +31,7 @@ void setup() {
 
 void loop() {
   // Coloque seu codigo principal aqui, para rodar repetidamente:
-
+  //
   //Escrevendo o resultado na tela:
   if (D == 0) {
     Serial.println("Impossível calcular a média ponderada.");  // Mostra a frase no monitor
