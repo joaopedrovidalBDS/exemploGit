@@ -3,7 +3,7 @@ float N1, N2, N3, P1, P2, P3, D, M;
 
 
 void setup() {
-  // Coloque seu codigo de setup aqui, para rodar uma vez:
+  // Coloque seu código de setup aqui, para rodar uma vez:
 
   //Iniciando a comunicação com o Monitor Serial:
   Serial.begin(9600);
@@ -30,9 +30,9 @@ void setup() {
 }
 
 void loop() {
-  // Coloque seu codigo principal aqui, para rodar repetidamente:
+  // Coloque seu código principal aqui, para rodar repetidamente:
 
-  //Escrevendo o resultado na tela:
+  //Escrevendo o resultado na tela, se ele for possível:
   if (D == 0) {
     Serial.println("Impossível calcular a média ponderada.");  // Mostra a frase no monitor
     delay(1000);                                               // Espera 1 segundo antes de seguir o loop
