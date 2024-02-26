@@ -10,49 +10,31 @@ void setup() {
   delay(1000);
 }
 
-void loop() {
-  
+void loop() { 
   // Coloque seu código principal aqui, para rodar repetidamente:
+
   Serial.print("Digite a nota 1: ");
-  while (Serial.available() == 0) {
-    //Aguarda o input no terminal
-  }
-  N1 = Serial.parseFloat();
+  N1 = aguardaEntrada();
   Serial.println(N1);
 
   Serial.print("Digite a nota 2: ");
-  while (Serial.available() == 0) {
-    //Aguarda o input no terminal
-  }
-  N2 = Serial.parseFloat();
+  N2 = aguardaEntrada();
   Serial.println(N2);
 
   Serial.print("Digite a nota 3: ");
-  while (Serial.available() == 0) {
-    //Aguarda o input no terminal
-  }
-  N3 = Serial.parseFloat();
+  N3 = aguardaEntrada();
   Serial.println(N3);
 
   Serial.print("Digite o peso 1: ");
-  while (Serial.available() == 0) {
-    //Aguarda o input no terminal
-  }
-  P1 = Serial.parseFloat();
+  P1 = aguardaEntrada();
   Serial.println(P1);
 
   Serial.print("Digite o peso 2: ");
-  while (Serial.available() == 0) {
-    //Aguarda o input no terminal
-  }
-  P2 = Serial.parseFloat();
+  P2 = aguardaEntrada();
   Serial.println(P2);
 
   Serial.print("Digite o peso 3: ");
-  while (Serial.available() == 0) {
-    //Aguarda o input no terminal
-  }
-  P3 = Serial.parseFloat();
+  P3 = aguardaEntrada();
   Serial.println(P3);
 
   //Cálculo do denominador:
@@ -64,4 +46,16 @@ void loop() {
   //Mostra a nota ao usuário:
   Serial.print("Sua media ponderada total e: ");
   Serial.println(M, 1);
+
+
 }
+
+//Criando uma função chamada aguardaEntrada
+    float aguardaEntrada(){
+    while (!Serial.available()) {
+      //Aguarda o input no terminal
+    }
+
+    //Retornar o valor digitado no terminal em tipo float
+    return Serial.parseFloat();
+  }
