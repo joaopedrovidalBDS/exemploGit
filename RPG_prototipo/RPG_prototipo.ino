@@ -115,21 +115,21 @@ void loop() {
     delay(500);
   }
 
-  //Girando um dado de 12 lados:
-  if (digitalRead(bot12) != 0) {
-    randomDado(12);
-    ligaSegmentosDisplay(conta);
-    if (conta == 0){
-      Serial.println("D12 CRITICO!");
-    }
-    delay(500);
-    if (conta == 0){
-      conta = 12;
-    }
-    conta += statusPers[pers][1];
-    Serial.print("Dano: ");
-    Serial.println(conta);
-  }
+  // //Girando um dado de 12 lados:
+  // if (digitalRead(bot12) != 0) {
+  //   randomDado(12);
+  //   ligaSegmentosDisplay(conta);
+  //   if (conta == 0){
+  //     Serial.println("D12 CRITICO!");
+  //   }
+  //   delay(500);
+  //   if (conta == 0){
+  //     conta = 12;
+  //   }
+  //   conta += statusPers[pers][1];
+  //   Serial.print("Dano: ");
+  //   Serial.println(conta);
+  // }
 
   // //Girando um dado de 8 lados:
   // if (digitalRead(bot8) != 0) {
