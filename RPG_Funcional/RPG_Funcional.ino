@@ -1,3 +1,4 @@
+//Definição das portas
 #define botP 10
 #define bot20 11
 #define bot12 12
@@ -7,38 +8,42 @@
 #define ledH A3
 #define ledV A4
 #define buz A5
+//Definição das variáveis de apoio
 int conta;
 int pers = 0;
+int HV = 0;
+int VV = 0;
 int numH = 0;
 int numV = 0;
 int cont = 0;
-bool status = false;
 
+//Lista de sequências de LEDs para formar os números 0-19
 byte displaySeteSeg[20][8] = {
 
-{ 0, 0, 0, 0, 0, 0, 1, 1 },
-{ 1, 0, 0, 1, 1, 1, 1, 1 },
-{ 0, 0, 1, 0, 0, 1, 0, 1 },
-{ 0, 0, 0, 0, 1, 1, 0, 1 },
-{ 1, 0, 0, 1, 1, 0, 0, 1 },
-{ 0, 1, 0, 0, 1, 0, 0, 1 },
-{ 0, 1, 0, 0, 0, 0, 0, 1 },
-{ 0, 0, 0, 1, 1, 1, 1, 1 },
-{ 0, 0, 0, 0, 0, 0, 0, 1 },
-{ 0, 0, 0, 0, 1, 0, 0, 1 },
-{ 0, 0, 0, 0, 0, 0, 1, 0 },
-{ 1, 0, 0, 1, 1, 1, 1, 0 },
-{ 0, 0, 1, 0, 0, 1, 0, 0 },
-{ 0, 0, 0, 0, 1, 1, 0, 0 },
-{ 1, 0, 0, 1, 1, 0, 0, 0 },
-{ 0, 1, 0, 0, 1, 0, 0, 0 },
-{ 0, 1, 0, 0, 0, 0, 0, 0 },
-{ 0, 0, 0, 1, 1, 1, 1, 0 },
-{ 0, 0, 0, 0, 0, 0, 0, 0 },
-{ 0, 0, 0, 0, 1, 0, 0, 0 }, 
+{ 0, 0, 0, 0, 0, 0, 1, 1 }, //0
+{ 1, 0, 0, 1, 1, 1, 1, 1 }, //1
+{ 0, 0, 1, 0, 0, 1, 0, 1 }, //2
+{ 0, 0, 0, 0, 1, 1, 0, 1 }, //3
+{ 1, 0, 0, 1, 1, 0, 0, 1 }, //4
+{ 0, 1, 0, 0, 1, 0, 0, 1 }, //5 
+{ 0, 1, 0, 0, 0, 0, 0, 1 }, //6 
+{ 0, 0, 0, 1, 1, 1, 1, 1 }, //7 
+{ 0, 0, 0, 0, 0, 0, 0, 1 }, //8
+{ 0, 0, 0, 0, 1, 0, 0, 1 }, //9
+{ 0, 0, 0, 0, 0, 0, 1, 0 }, //0.
+{ 1, 0, 0, 1, 1, 1, 1, 0 }, //1.
+{ 0, 0, 1, 0, 0, 1, 0, 0 }, //2.
+{ 0, 0, 0, 0, 1, 1, 0, 0 }, //3.
+{ 1, 0, 0, 1, 1, 0, 0, 0 }, //4.
+{ 0, 1, 0, 0, 1, 0, 0, 0 }, //5.
+{ 0, 1, 0, 0, 0, 0, 0, 0 }, //6.
+{ 0, 0, 0, 1, 1, 1, 1, 0 }, //7.
+{ 0, 0, 0, 0, 0, 0, 0, 0 }, //8.
+{ 0, 0, 0, 0, 1, 0, 0, 0 }, //9.
 
 };
 
+//Lista de carcterísticas dos personagens
 int statusPers[8][5] = {
 
   { 0, 0, 0, 0, 0 },    //Player 0
@@ -53,7 +58,7 @@ int statusPers[8][5] = {
 };
 
 void setup() {
-
+  //Definição dos pinos do display
   pinMode(2, OUTPUT);
   pinMode(3, OUTPUT);
   pinMode(4, OUTPUT);
@@ -62,18 +67,20 @@ void setup() {
   pinMode(7, OUTPUT);
   pinMode(8, OUTPUT);
   pinMode(9, OUTPUT);
-
+  //Definição dos outros pinos
   pinMode(bot12, INPUT);
   pinMode(bot8, INPUT);
   pinMode(bot6, INPUT);
   pinMode(bot4, INPUT);
   Serial.begin(9600);
+  //Comando para deixar a função Random aleatória
   randomSeed(analogRead(A0));
 }
 
 void loop() {
   //-------------------------------------------------------INICIO DO LOOP----------------------------------------------------------------------
 
+  //Código para seleção de personagem
   if (digitalRead(botP) != 0) {
     pers += 1;
     if (pers > 7) {
@@ -88,6 +95,7 @@ void loop() {
 
     randomDado(20);
     numH = conta;
+    HV = pers;
     ligaSegmentosDisplay(numH);
     cont += 1;
     delay(500);
@@ -96,6 +104,7 @@ void loop() {
 
     randomDado(20);
     numV = conta;
+    VV = pers;
     ligaSegmentosDisplay(numV);
     cont += 1;
     delay(500);
@@ -106,13 +115,16 @@ void loop() {
     cont = 0;
 
     if (numH > numV || numH == 0) {  // Herói com o maior
+	    pers = HV;
       ligaSegmentosDisplay(numH);
       analogWrite(ledH, 255);
       analogWrite(ledV, 0);
       Serial.println("O HEROI rodou um numero maior!");
       musicaPlay(1);
+      delay(1000);
 
     } else if (numV > numH || numV == 0) {  // Vilão com o maior
+	    pers = VV;
       ligaSegmentosDisplay(numV);
       analogWrite(ledH, 0);
       analogWrite(ledV, 255);
@@ -121,6 +133,7 @@ void loop() {
       delay(1000);
 
     } else {  // Números iguais
+	    pers = 0;
       ligaSegmentosDisplay(0);
       analogWrite(ledV, 255);
       analogWrite(ledH, 255);
@@ -144,6 +157,7 @@ void loop() {
     Serial.print("Dano: ");
     Serial.println(conta);
   }
+  
   //Girando um dado de 8 lados:
   if (digitalRead(bot8) != 0) {
     randomDado(8);
